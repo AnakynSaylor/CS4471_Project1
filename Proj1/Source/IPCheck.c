@@ -7,10 +7,10 @@
 //Need to go back and change variable names so they match throughout the file do not forget to go back and change to the correct variables when apprioprate (note for probably 20 minutes in the future Garrett
 
 int extract(const char* hex_sha256){
-  char last_five[6];
+  char lFive[6];
   int len = strlen(hex_sha256);
-  strcpy(last_five, &hex_sha256[len -5]);
-  return(int)strtoul(last_five, NULL, 16);
+  strcpy(lFive, &hex_sha256[len -5]);
+  return(int)strtoul(lFive, NULL, 16);
 }
 
 int main(int argc, char** argv){
