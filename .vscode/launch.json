@@ -1,0 +1,13 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "lldb",
+      "request": "launch",
+      "args": [],
+      "cwd": "/Users/braydengilland/Cyber_Proj1/CS4471_Project1/Proj1/Source",
+      "program": "/Users/braydengilland/Cyber_Proj1/CS4471_Project1/Proj1/Source/build/Debug/outDebug"
+    }
+  ]
+}

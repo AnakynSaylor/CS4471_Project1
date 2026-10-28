@@ -3,6 +3,7 @@
 #include <stdint.h>
 #include <string.h> 
 #include <stdio.h>
+#include <time.h>
 
 typedef struct RBFilter{
 
@@ -51,19 +52,73 @@ void free_rbf(rbf* r){
     free(r->filter);
     free(r);
 }
+// Implementation of the hash function
+int hash20(char* key, char* input){
+    char text[64];
+    uint8_t hash_bytes[SHA256_BYTES_SIZE];
+    sprintf(text, "%s%s", key, input);
+    sha256_bytes(text, strlen(text), hash_bytes);
+    return (hash_bytes[29] % 16) * 65536 + hash_bytes[30] * 256 + hash_bytes[31];
+}
+// Implementation of the chosen_row function
+int chosen_row(int column){
+    char column_text[16];
+
+    sprintf(column_text, "%d", column);
+
+    return hash20("0", column_text) % 2;
+}
 
 int main(int argc, char** argv){
     int m;
 
     m = atoi(argv[1]);
 
-
-    printf("I can run\n");
-
     rbf* rbfilter = init_rbf(m); // a function that intializes our rbf structure that we create given a size m variable
     
-    free_rbf(rbfilter);
+    srand(time(NULL));
 
+for (int column = 0; column < rbfilter->m; column++) {
+    rbfilter->filter[column] = rand() % 2;
+}
+    char ip[16];
+
+for (int x = 0; x <= 9; x++) {
+    for (int xxx = 0; xxx <= 999; xxx++) {
+        sprintf(ip, "192.168.%d.%03d", x, xxx);
+
+        char* keys[8] = {
+            rbfilter->key1, rbfilter->key2, rbfilter->key3, rbfilter->key4,
+            rbfilter->key5, rbfilter->key6, rbfilter->key7, rbfilter->key8
+        };
+
+        for (int k = 0; k < 8; k++) {
+            int column = hash20(keys[k], ip) % rbfilter->m;
+
+            if (chosen_row(column) == 0) {
+                rbfilter->filter[column] = 1;
+            } else {
+                rbfilter->filter[column] = 0;
+            }
+        }
+    }
+}
+
+char* file_name = "output.txt";
+if (argc > 2) {
+    file_name = argv[2];
+}
+
+FILE* output = fopen(file_name, "w");
+
+for (int column = 0; column < rbfilter->m; column++) {
+    fprintf(output, "%d", rbfilter->filter[column]);
+}
+fprintf(output, "\n");
+
+fclose(output);
+
+    free_rbf(rbfilter);
     
     return 0;
 }
