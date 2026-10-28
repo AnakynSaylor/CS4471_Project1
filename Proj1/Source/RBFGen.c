@@ -6,14 +6,14 @@
 
 typedef struct RBFilter{
 
-    char key1[2] = "1";
-    char key2[2] = "2";
-    char key3[2] = "3"; 
-    char key4[2] = "4";
-    char key5[2] = "5";
-    char key6[2] = "6";
-    char key7[2] = "7";
-    char key8[2] = "8";
+    char key1[2];
+    char key2[2];
+    char key3[2]; 
+    char key4[2];
+    char key5[2];
+    char key6[2];
+    char key7[2];
+    char key8[2];
 
     int* filter;
     int m; 
@@ -34,6 +34,14 @@ rbf* init_rbf(int m){
 
     new_rbf->m = m;
     new_rbf->filter = (int*)calloc(m, sizeof(int));
+    strcpy(new_rbf->key1, "1");
+    strcpy(new_rbf->key2, "2");
+    strcpy(new_rbf->key3, "3");
+    strcpy(new_rbf->key4, "4");
+    strcpy(new_rbf->key5, "5");
+    strcpy(new_rbf->key6, "6");
+    strcpy(new_rbf->key7, "7");
+    strcpy(new_rbf->key8, "8");
 
     return new_rbf;
 }
@@ -50,7 +58,7 @@ int main(int argc, char** argv){
     m = atoi(argv[1]);
 
 
-
+    printf("I can run\n");
 
     rbf* rbfilter = init_rbf(m); // a function that intializes our rbf structure that we create given a size m variable
 
