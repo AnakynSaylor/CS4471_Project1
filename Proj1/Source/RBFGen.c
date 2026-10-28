@@ -61,9 +61,7 @@ int main(int argc, char** argv){
     printf("I can run\n");
 
     rbf* rbfilter = init_rbf(m); // a function that intializes our rbf structure that we create given a size m variable
-
-
-
+    
     free_rbf(rbfilter);
 
     
