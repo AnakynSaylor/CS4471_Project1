@@ -6,5 +6,3 @@ IPCheck: IPCheck.c
 RBFGen: RBFGen.c
 	gcc RBFGen.c util/sha256.c -o RBFGen
 
-clean:
-	rm RBFGen IPCheck
